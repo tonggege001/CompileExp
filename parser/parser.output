@@ -1,0 +1,2481 @@
+Terminals unused in grammar
+
+   T_string
+   T_intArr
+   T_floatArr
+   T_alloc
+   T_free
+   T_break
+   T_continue
+
+
+状态 0 conflicts: 4 shift/reduce, 1 reduce/reduce
+状态 7 conflicts: 4 shift/reduce, 1 reduce/reduce
+状态 9 conflicts: 4 shift/reduce, 1 reduce/reduce
+状态 10 conflicts: 3 shift/reduce
+
+
+语法
+
+    0 $accept: Program $end
+
+    1 Program: EXTDEFLIST
+
+    2 EXTDEFLIST: %empty
+    3           | FUNC EXTDEFLIST
+    4           | DECLAREVALLIST EXTDEFLIST
+
+    5 FUNC: T_func T_identifier T_ls FUNC_VAR_LIST T_rs T_TYPE BODY
+
+    6 FUNC_ARG_LIST: %empty
+    7              | EXP FUNC_ARG
+
+    8 FUNC_ARG: %empty
+    9         | T_comma EXP FUNC_ARG
+
+   10 FUNC_VAR_LIST: %empty
+   11              | T_TYPE T_identifier FUNC_VAR
+
+   12 FUNC_VAR: %empty
+   13         | T_comma T_TYPE T_identifier
+
+   14 T_TYPE: T_int
+   15       | T_float
+   16       | T_char
+
+   17 DECLAREVALLIST: DECLAREVAL DECLAREVALLIST
+   18               | %empty
+
+   19 DECLAREVAL: T_TYPE T_identifier T_semi
+   20           | T_TYPE T_identifier T_assign EXP T_semi
+
+   21 BODY: T_lb DECLAREVAL STMTLIST T_rb
+
+   22 STMTLIST: %empty
+   23         | STMT STMTLIST
+
+   24 STMT: BODY
+   25     | EXP T_semi
+   26     | T_lb STMT T_rb
+   27     | T_return EXP T_semi
+   28     | T_if T_ls EXP T_rs STMT
+   29     | T_if T_ls EXP T_rs STMT T_else STMT
+   30     | T_while T_ls EXP T_rs STMT
+
+   31 CONST: T_cst_int
+   32      | T_cst_float
+   33      | T_cst_char
+
+   34 EXP: CONST
+   35    | T_identifier
+   36    | T_ls EXP T_ls
+   37    | EXP T_and EXP
+   38    | EXP T_assign EXP
+   39    | EXP T_or EXP
+   40    | T_not EXP
+   41    | EXP T_land EXP
+   42    | EXP T_lor EXP
+   43    | T_lnot EXP
+   44    | EXP T_lxor EXP
+   45    | EXP T_add EXP
+   46    | EXP T_sub EXP
+   47    | EXP T_mul EXP
+   48    | EXP T_div EXP
+   49    | EXP T_equal EXP
+   50    | EXP T_big EXP
+   51    | EXP T_bige EXP
+   52    | EXP T_small EXP
+   53    | EXP T_smalle EXP
+   54    | EXP T_nequal EXP
+   55    | EXP T_leftmove EXP
+   56    | EXP T_rightmove EXP
+   57    | T_identifier T_getarr EXP
+   58    | T_ls T_TYPE T_rs T_ls EXP T_rs
+   59    | EXP T_mod EXP
+   60    | T_identifier T_ls FUNC_ARG_LIST T_rs
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+T_int (258) 14
+T_char (259) 16
+T_float (260) 15
+T_string (261)
+T_intArr (262)
+T_floatArr (263)
+T_identifier (264) 5 11 13 19 20 35 57 60
+T_func (265) 5
+T_alloc (266)
+T_free (267)
+T_if (268) 28 29
+T_else (269) 29
+T_while (270) 30
+T_break (271)
+T_continue (272)
+T_return (273) 27
+T_getarr (274) 57
+T_not (275) 40
+T_lnot (276) 43
+T_div (277) 48
+T_mul (278) 47
+T_mod (279) 59
+T_sub (280) 46
+T_add (281) 45
+T_leftmove (282) 55
+T_rightmove (283) 56
+T_big (284) 50
+T_bige (285) 51
+T_small (286) 52
+T_smalle (287) 53
+T_equal (288) 49
+T_nequal (289) 54
+T_land (290) 41
+T_lxor (291) 44
+T_lor (292) 42
+T_and (293) 37
+T_or (294) 39
+T_assign (295) 20 38
+T_cst_int (296) 31
+T_cst_float (297) 32
+T_cst_char (298) 33
+T_ls (299) 5 28 29 30 36 58 60
+T_rs (300) 5 28 29 30 58 60
+T_lb (301) 21 26
+T_rb (302) 21 26
+T_semi (303) 19 20 25 27
+T_comma (304) 9 13
+
+
+Nonterminals, with rules where they appear
+
+$accept (50)
+    左： 0
+Program (51)
+    左： 1, 右： 0
+EXTDEFLIST (52)
+    左： 2 3 4, 右： 1 3 4
+FUNC (53)
+    左： 5, 右： 3
+FUNC_ARG_LIST (54)
+    左： 6 7, 右： 60
+FUNC_ARG (55)
+    左： 8 9, 右： 7 9
+FUNC_VAR_LIST (56)
+    左： 10 11, 右： 5
+FUNC_VAR (57)
+    左： 12 13, 右： 11
+T_TYPE (58)
+    左： 14 15 16, 右： 5 11 13 19 20 58
+DECLAREVALLIST (59)
+    左： 17 18, 右： 4 17
+DECLAREVAL (60)
+    左： 19 20, 右： 17 21
+BODY (61)
+    左： 21, 右： 5 24
+STMTLIST (62)
+    左： 22 23, 右： 21 23
+STMT (63)
+    左： 24 25 26 27 28 29 30, 右： 23 26 28 29 30
+CONST (64)
+    左： 31 32 33, 右： 34
+EXP (65)
+    左： 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52
+    53 54 55 56 57 58 59 60, 右： 7 9 20 25 27 28 29 30 36 37 38
+    39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59
+
+
+State 0
+
+    0 $accept: . Program $end
+
+    T_int    shift, and go to state 1
+    T_char   shift, and go to state 2
+    T_float  shift, and go to state 3
+    T_func   shift, and go to state 4
+
+    $end      reduce using rule 2 (EXTDEFLIST)
+    $end      [reduce using rule 18 (DECLAREVALLIST)]
+    T_int     [reduce using rule 18 (DECLAREVALLIST)]
+    T_char    [reduce using rule 18 (DECLAREVALLIST)]
+    T_float   [reduce using rule 18 (DECLAREVALLIST)]
+    T_func    [reduce using rule 18 (DECLAREVALLIST)]
+    $default  reduce using rule 2 (EXTDEFLIST)
+
+    Program         转到状态 5
+    EXTDEFLIST      转到状态 6
+    FUNC            转到状态 7
+    T_TYPE          转到状态 8
+    DECLAREVALLIST  转到状态 9
+    DECLAREVAL      转到状态 10
+
+
+State 1
+
+   14 T_TYPE: T_int .
+
+    $default  reduce using rule 14 (T_TYPE)
+
+
+State 2
+
+   16 T_TYPE: T_char .
+
+    $default  reduce using rule 16 (T_TYPE)
+
+
+State 3
+
+   15 T_TYPE: T_float .
+
+    $default  reduce using rule 15 (T_TYPE)
+
+
+State 4
+
+    5 FUNC: T_func . T_identifier T_ls FUNC_VAR_LIST T_rs T_TYPE BODY
+
+    T_identifier  shift, and go to state 11
+
+
+State 5
+
+    0 $accept: Program . $end
+
+    $end  shift, and go to state 12
+
+
+State 6
+
+    1 Program: EXTDEFLIST .
+
+    $default  reduce using rule 1 (Program)
+
+
+State 7
+
+    3 EXTDEFLIST: FUNC . EXTDEFLIST
+
+    T_int    shift, and go to state 1
+    T_char   shift, and go to state 2
+    T_float  shift, and go to state 3
+    T_func   shift, and go to state 4
+
+    $end      reduce using rule 2 (EXTDEFLIST)
+    $end      [reduce using rule 18 (DECLAREVALLIST)]
+    T_int     [reduce using rule 18 (DECLAREVALLIST)]
+    T_char    [reduce using rule 18 (DECLAREVALLIST)]
+    T_float   [reduce using rule 18 (DECLAREVALLIST)]
+    T_func    [reduce using rule 18 (DECLAREVALLIST)]
+    $default  reduce using rule 2 (EXTDEFLIST)
+
+    EXTDEFLIST      转到状态 13
+    FUNC            转到状态 7
+    T_TYPE          转到状态 8
+    DECLAREVALLIST  转到状态 9
+    DECLAREVAL      转到状态 10
+
+
+State 8
+
+   19 DECLAREVAL: T_TYPE . T_identifier T_semi
+   20           | T_TYPE . T_identifier T_assign EXP T_semi
+
+    T_identifier  shift, and go to state 14
+
+
+State 9
+
+    4 EXTDEFLIST: DECLAREVALLIST . EXTDEFLIST
+
+    T_int    shift, and go to state 1
+    T_char   shift, and go to state 2
+    T_float  shift, and go to state 3
+    T_func   shift, and go to state 4
+
+    $end      reduce using rule 2 (EXTDEFLIST)
+    $end      [reduce using rule 18 (DECLAREVALLIST)]
+    T_int     [reduce using rule 18 (DECLAREVALLIST)]
+    T_char    [reduce using rule 18 (DECLAREVALLIST)]
+    T_float   [reduce using rule 18 (DECLAREVALLIST)]
+    T_func    [reduce using rule 18 (DECLAREVALLIST)]
+    $default  reduce using rule 2 (EXTDEFLIST)
+
+    EXTDEFLIST      转到状态 15
+    FUNC            转到状态 7
+    T_TYPE          转到状态 8
+    DECLAREVALLIST  转到状态 9
+    DECLAREVAL      转到状态 10
+
+
+State 10
+
+   17 DECLAREVALLIST: DECLAREVAL . DECLAREVALLIST
+
+    T_int    shift, and go to state 1
+    T_char   shift, and go to state 2
+    T_float  shift, and go to state 3
+
+    T_int     [reduce using rule 18 (DECLAREVALLIST)]
+    T_char    [reduce using rule 18 (DECLAREVALLIST)]
+    T_float   [reduce using rule 18 (DECLAREVALLIST)]
+    $default  reduce using rule 18 (DECLAREVALLIST)
+
+    T_TYPE          转到状态 8
+    DECLAREVALLIST  转到状态 16
+    DECLAREVAL      转到状态 10
+
+
+State 11
+
+    5 FUNC: T_func T_identifier . T_ls FUNC_VAR_LIST T_rs T_TYPE BODY
+
+    T_ls  shift, and go to state 17
+
+
+State 12
+
+    0 $accept: Program $end .
+
+    $default  接受
+
+
+State 13
+
+    3 EXTDEFLIST: FUNC EXTDEFLIST .
+
+    $default  reduce using rule 3 (EXTDEFLIST)
+
+
+State 14
+
+   19 DECLAREVAL: T_TYPE T_identifier . T_semi
+   20           | T_TYPE T_identifier . T_assign EXP T_semi
+
+    T_assign  shift, and go to state 18
+    T_semi    shift, and go to state 19
+
+
+State 15
+
+    4 EXTDEFLIST: DECLAREVALLIST EXTDEFLIST .
+
+    $default  reduce using rule 4 (EXTDEFLIST)
+
+
+State 16
+
+   17 DECLAREVALLIST: DECLAREVAL DECLAREVALLIST .
+
+    $default  reduce using rule 17 (DECLAREVALLIST)
+
+
+State 17
+
+    5 FUNC: T_func T_identifier T_ls . FUNC_VAR_LIST T_rs T_TYPE BODY
+
+    T_int    shift, and go to state 1
+    T_char   shift, and go to state 2
+    T_float  shift, and go to state 3
+
+    $default  reduce using rule 10 (FUNC_VAR_LIST)
+
+    FUNC_VAR_LIST  转到状态 20
+    T_TYPE         转到状态 21
+
+
+State 18
+
+   20 DECLAREVAL: T_TYPE T_identifier T_assign . EXP T_semi
+
+    T_identifier  shift, and go to state 22
+    T_not         shift, and go to state 23
+    T_lnot        shift, and go to state 24
+    T_cst_int     shift, and go to state 25
+    T_cst_float   shift, and go to state 26
+    T_cst_char    shift, and go to state 27
+    T_ls          shift, and go to state 28
+
+    CONST  转到状态 29
+    EXP    转到状态 30
+
+
+State 19
+
+   19 DECLAREVAL: T_TYPE T_identifier T_semi .
+
+    $default  reduce using rule 19 (DECLAREVAL)
+
+
+State 20
+
+    5 FUNC: T_func T_identifier T_ls FUNC_VAR_LIST . T_rs T_TYPE BODY
+
+    T_rs  shift, and go to state 31
+
+
+State 21
+
+   11 FUNC_VAR_LIST: T_TYPE . T_identifier FUNC_VAR
+
+    T_identifier  shift, and go to state 32
+
+
+State 22
+
+   35 EXP: T_identifier .
+   57    | T_identifier . T_getarr EXP
+   60    | T_identifier . T_ls FUNC_ARG_LIST T_rs
+
+    T_getarr  shift, and go to state 33
+    T_ls      shift, and go to state 34
+
+    $default  reduce using rule 35 (EXP)
+
+
+State 23
+
+   40 EXP: T_not . EXP
+
+    T_identifier  shift, and go to state 22
+    T_not         shift, and go to state 23
+    T_lnot        shift, and go to state 24
+    T_cst_int     shift, and go to state 25
+    T_cst_float   shift, and go to state 26
+    T_cst_char    shift, and go to state 27
+    T_ls          shift, and go to state 28
+
+    CONST  转到状态 29
+    EXP    转到状态 35
+
+
+State 24
+
+   43 EXP: T_lnot . EXP
+
+    T_identifier  shift, and go to state 22
+    T_not         shift, and go to state 23
+    T_lnot        shift, and go to state 24
+    T_cst_int     shift, and go to state 25
+    T_cst_float   shift, and go to state 26
+    T_cst_char    shift, and go to state 27
+    T_ls          shift, and go to state 28
+
+    CONST  转到状态 29
+    EXP    转到状态 36
+
+
+State 25
+
+   31 CONST: T_cst_int .
+
+    $default  reduce using rule 31 (CONST)
+
+
+State 26
+
+   32 CONST: T_cst_float .
+
+    $default  reduce using rule 32 (CONST)
+
+
+State 27
+
+   33 CONST: T_cst_char .
+
+    $default  reduce using rule 33 (CONST)
+
+
+State 28
+
+   36 EXP: T_ls . EXP T_ls
+   58    | T_ls . T_TYPE T_rs T_ls EXP T_rs
+
+    T_int         shift, and go to state 1
+    T_char        shift, and go to state 2
+    T_float       shift, and go to state 3
+    T_identifier  shift, and go to state 22
+    T_not         shift, and go to state 23
+    T_lnot        shift, and go to state 24
+    T_cst_int     shift, and go to state 25
+    T_cst_float   shift, and go to state 26
+    T_cst_char    shift, and go to state 27
+    T_ls          shift, and go to state 28
+
+    T_TYPE  转到状态 37
+    CONST   转到状态 29
+    EXP     转到状态 38
+
+
+State 29
+
+   34 EXP: CONST .
+
+    $default  reduce using rule 34 (EXP)
+
+
+State 30
+
+   20 DECLAREVAL: T_TYPE T_identifier T_assign EXP . T_semi
+   37 EXP: EXP . T_and EXP
+   38    | EXP . T_assign EXP
+   39    | EXP . T_or EXP
+   41    | EXP . T_land EXP
+   42    | EXP . T_lor EXP
+   44    | EXP . T_lxor EXP
+   45    | EXP . T_add EXP
+   46    | EXP . T_sub EXP
+   47    | EXP . T_mul EXP
+   48    | EXP . T_div EXP
+   49    | EXP . T_equal EXP
+   50    | EXP . T_big EXP
+   51    | EXP . T_bige EXP
+   52    | EXP . T_small EXP
+   53    | EXP . T_smalle EXP
+   54    | EXP . T_nequal EXP
+   55    | EXP . T_leftmove EXP
+   56    | EXP . T_rightmove EXP
+   59    | EXP . T_mod EXP
+
+    T_div        shift, and go to state 39
+    T_mul        shift, and go to state 40
+    T_mod        shift, and go to state 41
+    T_sub        shift, and go to state 42
+    T_add        shift, and go to state 43
+    T_leftmove   shift, and go to state 44
+    T_rightmove  shift, and go to state 45
+    T_big        shift, and go to state 46
+    T_bige       shift, and go to state 47
+    T_small      shift, and go to state 48
+    T_smalle     shift, and go to state 49
+    T_equal      shift, and go to state 50
+    T_nequal     shift, and go to state 51
+    T_land       shift, and go to state 52
+    T_lxor       shift, and go to state 53
+    T_lor        shift, and go to state 54
+    T_and        shift, and go to state 55
+    T_or         shift, and go to state 56
+    T_assign     shift, and go to state 57
+    T_semi       shift, and go to state 58
+
+
+State 31
+
+    5 FUNC: T_func T_identifier T_ls FUNC_VAR_LIST T_rs . T_TYPE BODY
+
+    T_int    shift, and go to state 1
+    T_char   shift, and go to state 2
+    T_float  shift, and go to state 3
+
+    T_TYPE  转到状态 59
+
+
+State 32
+
+   11 FUNC_VAR_LIST: T_TYPE T_identifier . FUNC_VAR
+
+    T_comma  shift, and go to state 60
+
+    $default  reduce using rule 12 (FUNC_VAR)
+
+    FUNC_VAR  转到状态 61
+
+
+State 33
+
+   57 EXP: T_identifier T_getarr . EXP
+
+    T_identifier  shift, and go to state 22
+    T_not         shift, and go to state 23
+    T_lnot        shift, and go to state 24
+    T_cst_int     shift, and go to state 25
+    T_cst_float   shift, and go to state 26
+    T_cst_char    shift, and go to state 27
+    T_ls          shift, and go to state 28
+
+    CONST  转到状态 29
+    EXP    转到状态 62
+
+
+State 34
+
+   60 EXP: T_identifier T_ls . FUNC_ARG_LIST T_rs
+
+    T_identifier  shift, and go to state 22
+    T_not         shift, and go to state 23
+    T_lnot        shift, and go to state 24
+    T_cst_int     shift, and go to state 25
+    T_cst_float   shift, and go to state 26
+    T_cst_char    shift, and go to state 27
+    T_ls          shift, and go to state 28
+
+    $default  reduce using rule 6 (FUNC_ARG_LIST)
+
+    FUNC_ARG_LIST  转到状态 63
+    CONST          转到状态 29
+    EXP            转到状态 64
+
+
+State 35
+
+   37 EXP: EXP . T_and EXP
+   38    | EXP . T_assign EXP
+   39    | EXP . T_or EXP
+   40    | T_not EXP .
+   41    | EXP . T_land EXP
+   42    | EXP . T_lor EXP
+   44    | EXP . T_lxor EXP
+   45    | EXP . T_add EXP
+   46    | EXP . T_sub EXP
+   47    | EXP . T_mul EXP
+   48    | EXP . T_div EXP
+   49    | EXP . T_equal EXP
+   50    | EXP . T_big EXP
+   51    | EXP . T_bige EXP
+   52    | EXP . T_small EXP
+   53    | EXP . T_smalle EXP
+   54    | EXP . T_nequal EXP
+   55    | EXP . T_leftmove EXP
+   56    | EXP . T_rightmove EXP
+   59    | EXP . T_mod EXP
+
+    $default  reduce using rule 40 (EXP)
+
+
+State 36
+
+   37 EXP: EXP . T_and EXP
+   38    | EXP . T_assign EXP
+   39    | EXP . T_or EXP
+   41    | EXP . T_land EXP
+   42    | EXP . T_lor EXP
+   43    | T_lnot EXP .
+   44    | EXP . T_lxor EXP
+   45    | EXP . T_add EXP
+   46    | EXP . T_sub EXP
+   47    | EXP . T_mul EXP
+   48    | EXP . T_div EXP
+   49    | EXP . T_equal EXP
+   50    | EXP . T_big EXP
+   51    | EXP . T_bige EXP
+   52    | EXP . T_small EXP
+   53    | EXP . T_smalle EXP
+   54    | EXP . T_nequal EXP
+   55    | EXP . T_leftmove EXP
+   56    | EXP . T_rightmove EXP
+   59    | EXP . T_mod EXP
+
+    $default  reduce using rule 43 (EXP)
+
+
+State 37
+
+   58 EXP: T_ls T_TYPE . T_rs T_ls EXP T_rs
+
+    T_rs  shift, and go to state 65
+
+
+State 38
+
+   36 EXP: T_ls EXP . T_ls
+   37    | EXP . T_and EXP
+   38    | EXP . T_assign EXP
+   39    | EXP . T_or EXP
+   41    | EXP . T_land EXP
+   42    | EXP . T_lor EXP
+   44    | EXP . T_lxor EXP
+   45    | EXP . T_add EXP
+   46    | EXP . T_sub EXP
+   47    | EXP . T_mul EXP
+   48    | EXP . T_div EXP
+   49    | EXP . T_equal EXP
+   50    | EXP . T_big EXP
+   51    | EXP . T_bige EXP
+   52    | EXP . T_small EXP
+   53    | EXP . T_smalle EXP
+   54    | EXP . T_nequal EXP
+   55    | EXP . T_leftmove EXP
+   56    | EXP . T_rightmove EXP
+   59    | EXP . T_mod EXP
+
+    T_div        shift, and go to state 39
+    T_mul        shift, and go to state 40
+    T_mod        shift, and go to state 41
+    T_sub        shift, and go to state 42
+    T_add        shift, and go to state 43
+    T_leftmove   shift, and go to state 44
+    T_rightmove  shift, and go to state 45
+    T_big        shift, and go to state 46
+    T_bige       shift, and go to state 47
+    T_small      shift, and go to state 48
+    T_smalle     shift, and go to state 49
+    T_equal      shift, and go to state 50
+    T_nequal     shift, and go to state 51
+    T_land       shift, and go to state 52
+    T_lxor       shift, and go to state 53
+    T_lor        shift, and go to state 54
+    T_and        shift, and go to state 55
+    T_or         shift, and go to state 56
+    T_assign     shift, and go to state 57
+    T_ls         shift, and go to state 66
+
+
+State 39
+
+   48 EXP: EXP T_div . EXP
+
+    T_identifier  shift, and go to state 22
+    T_not         shift, and go to state 23
+    T_lnot        shift, and go to state 24
+    T_cst_int     shift, and go to state 25
+    T_cst_float   shift, and go to state 26
+    T_cst_char    shift, and go to state 27
+    T_ls          shift, and go to state 28
+
+    CONST  转到状态 29
+    EXP    转到状态 67
+
+
+State 40
+
+   47 EXP: EXP T_mul . EXP
+
+    T_identifier  shift, and go to state 22
+    T_not         shift, and go to state 23
+    T_lnot        shift, and go to state 24
+    T_cst_int     shift, and go to state 25
+    T_cst_float   shift, and go to state 26
+    T_cst_char    shift, and go to state 27
+    T_ls          shift, and go to state 28
+
+    CONST  转到状态 29
+    EXP    转到状态 68
+
+
+State 41
+
+   59 EXP: EXP T_mod . EXP
+
+    T_identifier  shift, and go to state 22
+    T_not         shift, and go to state 23
+    T_lnot        shift, and go to state 24
+    T_cst_int     shift, and go to state 25
+    T_cst_float   shift, and go to state 26
+    T_cst_char    shift, and go to state 27
+    T_ls          shift, and go to state 28
+
+    CONST  转到状态 29
+    EXP    转到状态 69
+
+
+State 42
+
+   46 EXP: EXP T_sub . EXP
+
+    T_identifier  shift, and go to state 22
+    T_not         shift, and go to state 23
+    T_lnot        shift, and go to state 24
+    T_cst_int     shift, and go to state 25
+    T_cst_float   shift, and go to state 26
+    T_cst_char    shift, and go to state 27
+    T_ls          shift, and go to state 28
+
+    CONST  转到状态 29
+    EXP    转到状态 70
+
+
+State 43
+
+   45 EXP: EXP T_add . EXP
+
+    T_identifier  shift, and go to state 22
+    T_not         shift, and go to state 23
+    T_lnot        shift, and go to state 24
+    T_cst_int     shift, and go to state 25
+    T_cst_float   shift, and go to state 26
+    T_cst_char    shift, and go to state 27
+    T_ls          shift, and go to state 28
+
+    CONST  转到状态 29
+    EXP    转到状态 71
+
+
+State 44
+
+   55 EXP: EXP T_leftmove . EXP
+
+    T_identifier  shift, and go to state 22
+    T_not         shift, and go to state 23
+    T_lnot        shift, and go to state 24
+    T_cst_int     shift, and go to state 25
+    T_cst_float   shift, and go to state 26
+    T_cst_char    shift, and go to state 27
+    T_ls          shift, and go to state 28
+
+    CONST  转到状态 29
+    EXP    转到状态 72
+
+
+State 45
+
+   56 EXP: EXP T_rightmove . EXP
+
+    T_identifier  shift, and go to state 22
+    T_not         shift, and go to state 23
+    T_lnot        shift, and go to state 24
+    T_cst_int     shift, and go to state 25
+    T_cst_float   shift, and go to state 26
+    T_cst_char    shift, and go to state 27
+    T_ls          shift, and go to state 28
+
+    CONST  转到状态 29
+    EXP    转到状态 73
+
+
+State 46
+
+   50 EXP: EXP T_big . EXP
+
+    T_identifier  shift, and go to state 22
+    T_not         shift, and go to state 23
+    T_lnot        shift, and go to state 24
+    T_cst_int     shift, and go to state 25
+    T_cst_float   shift, and go to state 26
+    T_cst_char    shift, and go to state 27
+    T_ls          shift, and go to state 28
+
+    CONST  转到状态 29
+    EXP    转到状态 74
+
+
+State 47
+
+   51 EXP: EXP T_bige . EXP
+
+    T_identifier  shift, and go to state 22
+    T_not         shift, and go to state 23
+    T_lnot        shift, and go to state 24
+    T_cst_int     shift, and go to state 25
+    T_cst_float   shift, and go to state 26
+    T_cst_char    shift, and go to state 27
+    T_ls          shift, and go to state 28
+
+    CONST  转到状态 29
+    EXP    转到状态 75
+
+
+State 48
+
+   52 EXP: EXP T_small . EXP
+
+    T_identifier  shift, and go to state 22
+    T_not         shift, and go to state 23
+    T_lnot        shift, and go to state 24
+    T_cst_int     shift, and go to state 25
+    T_cst_float   shift, and go to state 26
+    T_cst_char    shift, and go to state 27
+    T_ls          shift, and go to state 28
+
+    CONST  转到状态 29
+    EXP    转到状态 76
+
+
+State 49
+
+   53 EXP: EXP T_smalle . EXP
+
+    T_identifier  shift, and go to state 22
+    T_not         shift, and go to state 23
+    T_lnot        shift, and go to state 24
+    T_cst_int     shift, and go to state 25
+    T_cst_float   shift, and go to state 26
+    T_cst_char    shift, and go to state 27
+    T_ls          shift, and go to state 28
+
+    CONST  转到状态 29
+    EXP    转到状态 77
+
+
+State 50
+
+   49 EXP: EXP T_equal . EXP
+
+    T_identifier  shift, and go to state 22
+    T_not         shift, and go to state 23
+    T_lnot        shift, and go to state 24
+    T_cst_int     shift, and go to state 25
+    T_cst_float   shift, and go to state 26
+    T_cst_char    shift, and go to state 27
+    T_ls          shift, and go to state 28
+
+    CONST  转到状态 29
+    EXP    转到状态 78
+
+
+State 51
+
+   54 EXP: EXP T_nequal . EXP
+
+    T_identifier  shift, and go to state 22
+    T_not         shift, and go to state 23
+    T_lnot        shift, and go to state 24
+    T_cst_int     shift, and go to state 25
+    T_cst_float   shift, and go to state 26
+    T_cst_char    shift, and go to state 27
+    T_ls          shift, and go to state 28
+
+    CONST  转到状态 29
+    EXP    转到状态 79
+
+
+State 52
+
+   41 EXP: EXP T_land . EXP
+
+    T_identifier  shift, and go to state 22
+    T_not         shift, and go to state 23
+    T_lnot        shift, and go to state 24
+    T_cst_int     shift, and go to state 25
+    T_cst_float   shift, and go to state 26
+    T_cst_char    shift, and go to state 27
+    T_ls          shift, and go to state 28
+
+    CONST  转到状态 29
+    EXP    转到状态 80
+
+
+State 53
+
+   44 EXP: EXP T_lxor . EXP
+
+    T_identifier  shift, and go to state 22
+    T_not         shift, and go to state 23
+    T_lnot        shift, and go to state 24
+    T_cst_int     shift, and go to state 25
+    T_cst_float   shift, and go to state 26
+    T_cst_char    shift, and go to state 27
+    T_ls          shift, and go to state 28
+
+    CONST  转到状态 29
+    EXP    转到状态 81
+
+
+State 54
+
+   42 EXP: EXP T_lor . EXP
+
+    T_identifier  shift, and go to state 22
+    T_not         shift, and go to state 23
+    T_lnot        shift, and go to state 24
+    T_cst_int     shift, and go to state 25
+    T_cst_float   shift, and go to state 26
+    T_cst_char    shift, and go to state 27
+    T_ls          shift, and go to state 28
+
+    CONST  转到状态 29
+    EXP    转到状态 82
+
+
+State 55
+
+   37 EXP: EXP T_and . EXP
+
+    T_identifier  shift, and go to state 22
+    T_not         shift, and go to state 23
+    T_lnot        shift, and go to state 24
+    T_cst_int     shift, and go to state 25
+    T_cst_float   shift, and go to state 26
+    T_cst_char    shift, and go to state 27
+    T_ls          shift, and go to state 28
+
+    CONST  转到状态 29
+    EXP    转到状态 83
+
+
+State 56
+
+   39 EXP: EXP T_or . EXP
+
+    T_identifier  shift, and go to state 22
+    T_not         shift, and go to state 23
+    T_lnot        shift, and go to state 24
+    T_cst_int     shift, and go to state 25
+    T_cst_float   shift, and go to state 26
+    T_cst_char    shift, and go to state 27
+    T_ls          shift, and go to state 28
+
+    CONST  转到状态 29
+    EXP    转到状态 84
+
+
+State 57
+
+   38 EXP: EXP T_assign . EXP
+
+    T_identifier  shift, and go to state 22
+    T_not         shift, and go to state 23
+    T_lnot        shift, and go to state 24
+    T_cst_int     shift, and go to state 25
+    T_cst_float   shift, and go to state 26
+    T_cst_char    shift, and go to state 27
+    T_ls          shift, and go to state 28
+
+    CONST  转到状态 29
+    EXP    转到状态 85
+
+
+State 58
+
+   20 DECLAREVAL: T_TYPE T_identifier T_assign EXP T_semi .
+
+    $default  reduce using rule 20 (DECLAREVAL)
+
+
+State 59
+
+    5 FUNC: T_func T_identifier T_ls FUNC_VAR_LIST T_rs T_TYPE . BODY
+
+    T_lb  shift, and go to state 86
+
+    BODY  转到状态 87
+
+
+State 60
+
+   13 FUNC_VAR: T_comma . T_TYPE T_identifier
+
+    T_int    shift, and go to state 1
+    T_char   shift, and go to state 2
+    T_float  shift, and go to state 3
+
+    T_TYPE  转到状态 88
+
+
+State 61
+
+   11 FUNC_VAR_LIST: T_TYPE T_identifier FUNC_VAR .
+
+    $default  reduce using rule 11 (FUNC_VAR_LIST)
+
+
+State 62
+
+   37 EXP: EXP . T_and EXP
+   38    | EXP . T_assign EXP
+   39    | EXP . T_or EXP
+   41    | EXP . T_land EXP
+   42    | EXP . T_lor EXP
+   44    | EXP . T_lxor EXP
+   45    | EXP . T_add EXP
+   46    | EXP . T_sub EXP
+   47    | EXP . T_mul EXP
+   48    | EXP . T_div EXP
+   49    | EXP . T_equal EXP
+   50    | EXP . T_big EXP
+   51    | EXP . T_bige EXP
+   52    | EXP . T_small EXP
+   53    | EXP . T_smalle EXP
+   54    | EXP . T_nequal EXP
+   55    | EXP . T_leftmove EXP
+   56    | EXP . T_rightmove EXP
+   57    | T_identifier T_getarr EXP .
+   59    | EXP . T_mod EXP
+
+    $default  reduce using rule 57 (EXP)
+
+
+State 63
+
+   60 EXP: T_identifier T_ls FUNC_ARG_LIST . T_rs
+
+    T_rs  shift, and go to state 89
+
+
+State 64
+
+    7 FUNC_ARG_LIST: EXP . FUNC_ARG
+   37 EXP: EXP . T_and EXP
+   38    | EXP . T_assign EXP
+   39    | EXP . T_or EXP
+   41    | EXP . T_land EXP
+   42    | EXP . T_lor EXP
+   44    | EXP . T_lxor EXP
+   45    | EXP . T_add EXP
+   46    | EXP . T_sub EXP
+   47    | EXP . T_mul EXP
+   48    | EXP . T_div EXP
+   49    | EXP . T_equal EXP
+   50    | EXP . T_big EXP
+   51    | EXP . T_bige EXP
+   52    | EXP . T_small EXP
+   53    | EXP . T_smalle EXP
+   54    | EXP . T_nequal EXP
+   55    | EXP . T_leftmove EXP
+   56    | EXP . T_rightmove EXP
+   59    | EXP . T_mod EXP
+
+    T_div        shift, and go to state 39
+    T_mul        shift, and go to state 40
+    T_mod        shift, and go to state 41
+    T_sub        shift, and go to state 42
+    T_add        shift, and go to state 43
+    T_leftmove   shift, and go to state 44
+    T_rightmove  shift, and go to state 45
+    T_big        shift, and go to state 46
+    T_bige       shift, and go to state 47
+    T_small      shift, and go to state 48
+    T_smalle     shift, and go to state 49
+    T_equal      shift, and go to state 50
+    T_nequal     shift, and go to state 51
+    T_land       shift, and go to state 52
+    T_lxor       shift, and go to state 53
+    T_lor        shift, and go to state 54
+    T_and        shift, and go to state 55
+    T_or         shift, and go to state 56
+    T_assign     shift, and go to state 57
+    T_comma      shift, and go to state 90
+
+    $default  reduce using rule 8 (FUNC_ARG)
+
+    FUNC_ARG  转到状态 91
+
+
+State 65
+
+   58 EXP: T_ls T_TYPE T_rs . T_ls EXP T_rs
+
+    T_ls  shift, and go to state 92
+
+
+State 66
+
+   36 EXP: T_ls EXP T_ls .
+
+    $default  reduce using rule 36 (EXP)
+
+
+State 67
+
+   37 EXP: EXP . T_and EXP
+   38    | EXP . T_assign EXP
+   39    | EXP . T_or EXP
+   41    | EXP . T_land EXP
+   42    | EXP . T_lor EXP
+   44    | EXP . T_lxor EXP
+   45    | EXP . T_add EXP
+   46    | EXP . T_sub EXP
+   47    | EXP . T_mul EXP
+   48    | EXP . T_div EXP
+   48    | EXP T_div EXP .
+   49    | EXP . T_equal EXP
+   50    | EXP . T_big EXP
+   51    | EXP . T_bige EXP
+   52    | EXP . T_small EXP
+   53    | EXP . T_smalle EXP
+   54    | EXP . T_nequal EXP
+   55    | EXP . T_leftmove EXP
+   56    | EXP . T_rightmove EXP
+   59    | EXP . T_mod EXP
+
+    $default  reduce using rule 48 (EXP)
+
+
+State 68
+
+   37 EXP: EXP . T_and EXP
+   38    | EXP . T_assign EXP
+   39    | EXP . T_or EXP
+   41    | EXP . T_land EXP
+   42    | EXP . T_lor EXP
+   44    | EXP . T_lxor EXP
+   45    | EXP . T_add EXP
+   46    | EXP . T_sub EXP
+   47    | EXP . T_mul EXP
+   47    | EXP T_mul EXP .
+   48    | EXP . T_div EXP
+   49    | EXP . T_equal EXP
+   50    | EXP . T_big EXP
+   51    | EXP . T_bige EXP
+   52    | EXP . T_small EXP
+   53    | EXP . T_smalle EXP
+   54    | EXP . T_nequal EXP
+   55    | EXP . T_leftmove EXP
+   56    | EXP . T_rightmove EXP
+   59    | EXP . T_mod EXP
+
+    $default  reduce using rule 47 (EXP)
+
+
+State 69
+
+   37 EXP: EXP . T_and EXP
+   38    | EXP . T_assign EXP
+   39    | EXP . T_or EXP
+   41    | EXP . T_land EXP
+   42    | EXP . T_lor EXP
+   44    | EXP . T_lxor EXP
+   45    | EXP . T_add EXP
+   46    | EXP . T_sub EXP
+   47    | EXP . T_mul EXP
+   48    | EXP . T_div EXP
+   49    | EXP . T_equal EXP
+   50    | EXP . T_big EXP
+   51    | EXP . T_bige EXP
+   52    | EXP . T_small EXP
+   53    | EXP . T_smalle EXP
+   54    | EXP . T_nequal EXP
+   55    | EXP . T_leftmove EXP
+   56    | EXP . T_rightmove EXP
+   59    | EXP . T_mod EXP
+   59    | EXP T_mod EXP .
+
+    $default  reduce using rule 59 (EXP)
+
+
+State 70
+
+   37 EXP: EXP . T_and EXP
+   38    | EXP . T_assign EXP
+   39    | EXP . T_or EXP
+   41    | EXP . T_land EXP
+   42    | EXP . T_lor EXP
+   44    | EXP . T_lxor EXP
+   45    | EXP . T_add EXP
+   46    | EXP . T_sub EXP
+   46    | EXP T_sub EXP .
+   47    | EXP . T_mul EXP
+   48    | EXP . T_div EXP
+   49    | EXP . T_equal EXP
+   50    | EXP . T_big EXP
+   51    | EXP . T_bige EXP
+   52    | EXP . T_small EXP
+   53    | EXP . T_smalle EXP
+   54    | EXP . T_nequal EXP
+   55    | EXP . T_leftmove EXP
+   56    | EXP . T_rightmove EXP
+   59    | EXP . T_mod EXP
+
+    T_div  shift, and go to state 39
+    T_mul  shift, and go to state 40
+    T_mod  shift, and go to state 41
+
+    $default  reduce using rule 46 (EXP)
+
+
+State 71
+
+   37 EXP: EXP . T_and EXP
+   38    | EXP . T_assign EXP
+   39    | EXP . T_or EXP
+   41    | EXP . T_land EXP
+   42    | EXP . T_lor EXP
+   44    | EXP . T_lxor EXP
+   45    | EXP . T_add EXP
+   45    | EXP T_add EXP .
+   46    | EXP . T_sub EXP
+   47    | EXP . T_mul EXP
+   48    | EXP . T_div EXP
+   49    | EXP . T_equal EXP
+   50    | EXP . T_big EXP
+   51    | EXP . T_bige EXP
+   52    | EXP . T_small EXP
+   53    | EXP . T_smalle EXP
+   54    | EXP . T_nequal EXP
+   55    | EXP . T_leftmove EXP
+   56    | EXP . T_rightmove EXP
+   59    | EXP . T_mod EXP
+
+    T_div  shift, and go to state 39
+    T_mul  shift, and go to state 40
+    T_mod  shift, and go to state 41
+
+    $default  reduce using rule 45 (EXP)
+
+
+State 72
+
+   37 EXP: EXP . T_and EXP
+   38    | EXP . T_assign EXP
+   39    | EXP . T_or EXP
+   41    | EXP . T_land EXP
+   42    | EXP . T_lor EXP
+   44    | EXP . T_lxor EXP
+   45    | EXP . T_add EXP
+   46    | EXP . T_sub EXP
+   47    | EXP . T_mul EXP
+   48    | EXP . T_div EXP
+   49    | EXP . T_equal EXP
+   50    | EXP . T_big EXP
+   51    | EXP . T_bige EXP
+   52    | EXP . T_small EXP
+   53    | EXP . T_smalle EXP
+   54    | EXP . T_nequal EXP
+   55    | EXP . T_leftmove EXP
+   55    | EXP T_leftmove EXP .
+   56    | EXP . T_rightmove EXP
+   59    | EXP . T_mod EXP
+
+    T_div  shift, and go to state 39
+    T_mul  shift, and go to state 40
+    T_mod  shift, and go to state 41
+    T_sub  shift, and go to state 42
+    T_add  shift, and go to state 43
+
+    $default  reduce using rule 55 (EXP)
+
+
+State 73
+
+   37 EXP: EXP . T_and EXP
+   38    | EXP . T_assign EXP
+   39    | EXP . T_or EXP
+   41    | EXP . T_land EXP
+   42    | EXP . T_lor EXP
+   44    | EXP . T_lxor EXP
+   45    | EXP . T_add EXP
+   46    | EXP . T_sub EXP
+   47    | EXP . T_mul EXP
+   48    | EXP . T_div EXP
+   49    | EXP . T_equal EXP
+   50    | EXP . T_big EXP
+   51    | EXP . T_bige EXP
+   52    | EXP . T_small EXP
+   53    | EXP . T_smalle EXP
+   54    | EXP . T_nequal EXP
+   55    | EXP . T_leftmove EXP
+   56    | EXP . T_rightmove EXP
+   56    | EXP T_rightmove EXP .
+   59    | EXP . T_mod EXP
+
+    T_div  shift, and go to state 39
+    T_mul  shift, and go to state 40
+    T_mod  shift, and go to state 41
+    T_sub  shift, and go to state 42
+    T_add  shift, and go to state 43
+
+    $default  reduce using rule 56 (EXP)
+
+
+State 74
+
+   37 EXP: EXP . T_and EXP
+   38    | EXP . T_assign EXP
+   39    | EXP . T_or EXP
+   41    | EXP . T_land EXP
+   42    | EXP . T_lor EXP
+   44    | EXP . T_lxor EXP
+   45    | EXP . T_add EXP
+   46    | EXP . T_sub EXP
+   47    | EXP . T_mul EXP
+   48    | EXP . T_div EXP
+   49    | EXP . T_equal EXP
+   50    | EXP . T_big EXP
+   50    | EXP T_big EXP .
+   51    | EXP . T_bige EXP
+   52    | EXP . T_small EXP
+   53    | EXP . T_smalle EXP
+   54    | EXP . T_nequal EXP
+   55    | EXP . T_leftmove EXP
+   56    | EXP . T_rightmove EXP
+   59    | EXP . T_mod EXP
+
+    T_div        shift, and go to state 39
+    T_mul        shift, and go to state 40
+    T_mod        shift, and go to state 41
+    T_sub        shift, and go to state 42
+    T_add        shift, and go to state 43
+    T_leftmove   shift, and go to state 44
+    T_rightmove  shift, and go to state 45
+
+    $default  reduce using rule 50 (EXP)
+
+
+State 75
+
+   37 EXP: EXP . T_and EXP
+   38    | EXP . T_assign EXP
+   39    | EXP . T_or EXP
+   41    | EXP . T_land EXP
+   42    | EXP . T_lor EXP
+   44    | EXP . T_lxor EXP
+   45    | EXP . T_add EXP
+   46    | EXP . T_sub EXP
+   47    | EXP . T_mul EXP
+   48    | EXP . T_div EXP
+   49    | EXP . T_equal EXP
+   50    | EXP . T_big EXP
+   51    | EXP . T_bige EXP
+   51    | EXP T_bige EXP .
+   52    | EXP . T_small EXP
+   53    | EXP . T_smalle EXP
+   54    | EXP . T_nequal EXP
+   55    | EXP . T_leftmove EXP
+   56    | EXP . T_rightmove EXP
+   59    | EXP . T_mod EXP
+
+    T_div        shift, and go to state 39
+    T_mul        shift, and go to state 40
+    T_mod        shift, and go to state 41
+    T_sub        shift, and go to state 42
+    T_add        shift, and go to state 43
+    T_leftmove   shift, and go to state 44
+    T_rightmove  shift, and go to state 45
+
+    $default  reduce using rule 51 (EXP)
+
+
+State 76
+
+   37 EXP: EXP . T_and EXP
+   38    | EXP . T_assign EXP
+   39    | EXP . T_or EXP
+   41    | EXP . T_land EXP
+   42    | EXP . T_lor EXP
+   44    | EXP . T_lxor EXP
+   45    | EXP . T_add EXP
+   46    | EXP . T_sub EXP
+   47    | EXP . T_mul EXP
+   48    | EXP . T_div EXP
+   49    | EXP . T_equal EXP
+   50    | EXP . T_big EXP
+   51    | EXP . T_bige EXP
+   52    | EXP . T_small EXP
+   52    | EXP T_small EXP .
+   53    | EXP . T_smalle EXP
+   54    | EXP . T_nequal EXP
+   55    | EXP . T_leftmove EXP
+   56    | EXP . T_rightmove EXP
+   59    | EXP . T_mod EXP
+
+    T_div        shift, and go to state 39
+    T_mul        shift, and go to state 40
+    T_mod        shift, and go to state 41
+    T_sub        shift, and go to state 42
+    T_add        shift, and go to state 43
+    T_leftmove   shift, and go to state 44
+    T_rightmove  shift, and go to state 45
+
+    $default  reduce using rule 52 (EXP)
+
+
+State 77
+
+   37 EXP: EXP . T_and EXP
+   38    | EXP . T_assign EXP
+   39    | EXP . T_or EXP
+   41    | EXP . T_land EXP
+   42    | EXP . T_lor EXP
+   44    | EXP . T_lxor EXP
+   45    | EXP . T_add EXP
+   46    | EXP . T_sub EXP
+   47    | EXP . T_mul EXP
+   48    | EXP . T_div EXP
+   49    | EXP . T_equal EXP
+   50    | EXP . T_big EXP
+   51    | EXP . T_bige EXP
+   52    | EXP . T_small EXP
+   53    | EXP . T_smalle EXP
+   53    | EXP T_smalle EXP .
+   54    | EXP . T_nequal EXP
+   55    | EXP . T_leftmove EXP
+   56    | EXP . T_rightmove EXP
+   59    | EXP . T_mod EXP
+
+    T_div        shift, and go to state 39
+    T_mul        shift, and go to state 40
+    T_mod        shift, and go to state 41
+    T_sub        shift, and go to state 42
+    T_add        shift, and go to state 43
+    T_leftmove   shift, and go to state 44
+    T_rightmove  shift, and go to state 45
+
+    $default  reduce using rule 53 (EXP)
+
+
+State 78
+
+   37 EXP: EXP . T_and EXP
+   38    | EXP . T_assign EXP
+   39    | EXP . T_or EXP
+   41    | EXP . T_land EXP
+   42    | EXP . T_lor EXP
+   44    | EXP . T_lxor EXP
+   45    | EXP . T_add EXP
+   46    | EXP . T_sub EXP
+   47    | EXP . T_mul EXP
+   48    | EXP . T_div EXP
+   49    | EXP . T_equal EXP
+   49    | EXP T_equal EXP .
+   50    | EXP . T_big EXP
+   51    | EXP . T_bige EXP
+   52    | EXP . T_small EXP
+   53    | EXP . T_smalle EXP
+   54    | EXP . T_nequal EXP
+   55    | EXP . T_leftmove EXP
+   56    | EXP . T_rightmove EXP
+   59    | EXP . T_mod EXP
+
+    T_div        shift, and go to state 39
+    T_mul        shift, and go to state 40
+    T_mod        shift, and go to state 41
+    T_sub        shift, and go to state 42
+    T_add        shift, and go to state 43
+    T_leftmove   shift, and go to state 44
+    T_rightmove  shift, and go to state 45
+    T_big        shift, and go to state 46
+    T_bige       shift, and go to state 47
+    T_small      shift, and go to state 48
+    T_smalle     shift, and go to state 49
+
+    $default  reduce using rule 49 (EXP)
+
+
+State 79
+
+   37 EXP: EXP . T_and EXP
+   38    | EXP . T_assign EXP
+   39    | EXP . T_or EXP
+   41    | EXP . T_land EXP
+   42    | EXP . T_lor EXP
+   44    | EXP . T_lxor EXP
+   45    | EXP . T_add EXP
+   46    | EXP . T_sub EXP
+   47    | EXP . T_mul EXP
+   48    | EXP . T_div EXP
+   49    | EXP . T_equal EXP
+   50    | EXP . T_big EXP
+   51    | EXP . T_bige EXP
+   52    | EXP . T_small EXP
+   53    | EXP . T_smalle EXP
+   54    | EXP . T_nequal EXP
+   54    | EXP T_nequal EXP .
+   55    | EXP . T_leftmove EXP
+   56    | EXP . T_rightmove EXP
+   59    | EXP . T_mod EXP
+
+    T_div        shift, and go to state 39
+    T_mul        shift, and go to state 40
+    T_mod        shift, and go to state 41
+    T_sub        shift, and go to state 42
+    T_add        shift, and go to state 43
+    T_leftmove   shift, and go to state 44
+    T_rightmove  shift, and go to state 45
+    T_big        shift, and go to state 46
+    T_bige       shift, and go to state 47
+    T_small      shift, and go to state 48
+    T_smalle     shift, and go to state 49
+
+    $default  reduce using rule 54 (EXP)
+
+
+State 80
+
+   37 EXP: EXP . T_and EXP
+   38    | EXP . T_assign EXP
+   39    | EXP . T_or EXP
+   41    | EXP . T_land EXP
+   41    | EXP T_land EXP .
+   42    | EXP . T_lor EXP
+   44    | EXP . T_lxor EXP
+   45    | EXP . T_add EXP
+   46    | EXP . T_sub EXP
+   47    | EXP . T_mul EXP
+   48    | EXP . T_div EXP
+   49    | EXP . T_equal EXP
+   50    | EXP . T_big EXP
+   51    | EXP . T_bige EXP
+   52    | EXP . T_small EXP
+   53    | EXP . T_smalle EXP
+   54    | EXP . T_nequal EXP
+   55    | EXP . T_leftmove EXP
+   56    | EXP . T_rightmove EXP
+   59    | EXP . T_mod EXP
+
+    T_div        shift, and go to state 39
+    T_mul        shift, and go to state 40
+    T_mod        shift, and go to state 41
+    T_sub        shift, and go to state 42
+    T_add        shift, and go to state 43
+    T_leftmove   shift, and go to state 44
+    T_rightmove  shift, and go to state 45
+    T_big        shift, and go to state 46
+    T_bige       shift, and go to state 47
+    T_small      shift, and go to state 48
+    T_smalle     shift, and go to state 49
+    T_equal      shift, and go to state 50
+    T_nequal     shift, and go to state 51
+
+    $default  reduce using rule 41 (EXP)
+
+
+State 81
+
+   37 EXP: EXP . T_and EXP
+   38    | EXP . T_assign EXP
+   39    | EXP . T_or EXP
+   41    | EXP . T_land EXP
+   42    | EXP . T_lor EXP
+   44    | EXP . T_lxor EXP
+   44    | EXP T_lxor EXP .
+   45    | EXP . T_add EXP
+   46    | EXP . T_sub EXP
+   47    | EXP . T_mul EXP
+   48    | EXP . T_div EXP
+   49    | EXP . T_equal EXP
+   50    | EXP . T_big EXP
+   51    | EXP . T_bige EXP
+   52    | EXP . T_small EXP
+   53    | EXP . T_smalle EXP
+   54    | EXP . T_nequal EXP
+   55    | EXP . T_leftmove EXP
+   56    | EXP . T_rightmove EXP
+   59    | EXP . T_mod EXP
+
+    T_div        shift, and go to state 39
+    T_mul        shift, and go to state 40
+    T_mod        shift, and go to state 41
+    T_sub        shift, and go to state 42
+    T_add        shift, and go to state 43
+    T_leftmove   shift, and go to state 44
+    T_rightmove  shift, and go to state 45
+    T_big        shift, and go to state 46
+    T_bige       shift, and go to state 47
+    T_small      shift, and go to state 48
+    T_smalle     shift, and go to state 49
+    T_equal      shift, and go to state 50
+    T_nequal     shift, and go to state 51
+    T_land       shift, and go to state 52
+
+    $default  reduce using rule 44 (EXP)
+
+
+State 82
+
+   37 EXP: EXP . T_and EXP
+   38    | EXP . T_assign EXP
+   39    | EXP . T_or EXP
+   41    | EXP . T_land EXP
+   42    | EXP . T_lor EXP
+   42    | EXP T_lor EXP .
+   44    | EXP . T_lxor EXP
+   45    | EXP . T_add EXP
+   46    | EXP . T_sub EXP
+   47    | EXP . T_mul EXP
+   48    | EXP . T_div EXP
+   49    | EXP . T_equal EXP
+   50    | EXP . T_big EXP
+   51    | EXP . T_bige EXP
+   52    | EXP . T_small EXP
+   53    | EXP . T_smalle EXP
+   54    | EXP . T_nequal EXP
+   55    | EXP . T_leftmove EXP
+   56    | EXP . T_rightmove EXP
+   59    | EXP . T_mod EXP
+
+    T_div        shift, and go to state 39
+    T_mul        shift, and go to state 40
+    T_mod        shift, and go to state 41
+    T_sub        shift, and go to state 42
+    T_add        shift, and go to state 43
+    T_leftmove   shift, and go to state 44
+    T_rightmove  shift, and go to state 45
+    T_big        shift, and go to state 46
+    T_bige       shift, and go to state 47
+    T_small      shift, and go to state 48
+    T_smalle     shift, and go to state 49
+    T_equal      shift, and go to state 50
+    T_nequal     shift, and go to state 51
+    T_land       shift, and go to state 52
+    T_lxor       shift, and go to state 53
+
+    $default  reduce using rule 42 (EXP)
+
+
+State 83
+
+   37 EXP: EXP . T_and EXP
+   37    | EXP T_and EXP .
+   38    | EXP . T_assign EXP
+   39    | EXP . T_or EXP
+   41    | EXP . T_land EXP
+   42    | EXP . T_lor EXP
+   44    | EXP . T_lxor EXP
+   45    | EXP . T_add EXP
+   46    | EXP . T_sub EXP
+   47    | EXP . T_mul EXP
+   48    | EXP . T_div EXP
+   49    | EXP . T_equal EXP
+   50    | EXP . T_big EXP
+   51    | EXP . T_bige EXP
+   52    | EXP . T_small EXP
+   53    | EXP . T_smalle EXP
+   54    | EXP . T_nequal EXP
+   55    | EXP . T_leftmove EXP
+   56    | EXP . T_rightmove EXP
+   59    | EXP . T_mod EXP
+
+    T_div        shift, and go to state 39
+    T_mul        shift, and go to state 40
+    T_mod        shift, and go to state 41
+    T_sub        shift, and go to state 42
+    T_add        shift, and go to state 43
+    T_leftmove   shift, and go to state 44
+    T_rightmove  shift, and go to state 45
+    T_big        shift, and go to state 46
+    T_bige       shift, and go to state 47
+    T_small      shift, and go to state 48
+    T_smalle     shift, and go to state 49
+    T_equal      shift, and go to state 50
+    T_nequal     shift, and go to state 51
+    T_land       shift, and go to state 52
+    T_lxor       shift, and go to state 53
+    T_lor        shift, and go to state 54
+
+    $default  reduce using rule 37 (EXP)
+
+
+State 84
+
+   37 EXP: EXP . T_and EXP
+   38    | EXP . T_assign EXP
+   39    | EXP . T_or EXP
+   39    | EXP T_or EXP .
+   41    | EXP . T_land EXP
+   42    | EXP . T_lor EXP
+   44    | EXP . T_lxor EXP
+   45    | EXP . T_add EXP
+   46    | EXP . T_sub EXP
+   47    | EXP . T_mul EXP
+   48    | EXP . T_div EXP
+   49    | EXP . T_equal EXP
+   50    | EXP . T_big EXP
+   51    | EXP . T_bige EXP
+   52    | EXP . T_small EXP
+   53    | EXP . T_smalle EXP
+   54    | EXP . T_nequal EXP
+   55    | EXP . T_leftmove EXP
+   56    | EXP . T_rightmove EXP
+   59    | EXP . T_mod EXP
+
+    T_div        shift, and go to state 39
+    T_mul        shift, and go to state 40
+    T_mod        shift, and go to state 41
+    T_sub        shift, and go to state 42
+    T_add        shift, and go to state 43
+    T_leftmove   shift, and go to state 44
+    T_rightmove  shift, and go to state 45
+    T_big        shift, and go to state 46
+    T_bige       shift, and go to state 47
+    T_small      shift, and go to state 48
+    T_smalle     shift, and go to state 49
+    T_equal      shift, and go to state 50
+    T_nequal     shift, and go to state 51
+    T_land       shift, and go to state 52
+    T_lxor       shift, and go to state 53
+    T_lor        shift, and go to state 54
+    T_and        shift, and go to state 55
+
+    $default  reduce using rule 39 (EXP)
+
+
+State 85
+
+   37 EXP: EXP . T_and EXP
+   38    | EXP . T_assign EXP
+   38    | EXP T_assign EXP .
+   39    | EXP . T_or EXP
+   41    | EXP . T_land EXP
+   42    | EXP . T_lor EXP
+   44    | EXP . T_lxor EXP
+   45    | EXP . T_add EXP
+   46    | EXP . T_sub EXP
+   47    | EXP . T_mul EXP
+   48    | EXP . T_div EXP
+   49    | EXP . T_equal EXP
+   50    | EXP . T_big EXP
+   51    | EXP . T_bige EXP
+   52    | EXP . T_small EXP
+   53    | EXP . T_smalle EXP
+   54    | EXP . T_nequal EXP
+   55    | EXP . T_leftmove EXP
+   56    | EXP . T_rightmove EXP
+   59    | EXP . T_mod EXP
+
+    T_div        shift, and go to state 39
+    T_mul        shift, and go to state 40
+    T_mod        shift, and go to state 41
+    T_sub        shift, and go to state 42
+    T_add        shift, and go to state 43
+    T_leftmove   shift, and go to state 44
+    T_rightmove  shift, and go to state 45
+    T_big        shift, and go to state 46
+    T_bige       shift, and go to state 47
+    T_small      shift, and go to state 48
+    T_smalle     shift, and go to state 49
+    T_equal      shift, and go to state 50
+    T_nequal     shift, and go to state 51
+    T_land       shift, and go to state 52
+    T_lxor       shift, and go to state 53
+    T_lor        shift, and go to state 54
+    T_and        shift, and go to state 55
+    T_or         shift, and go to state 56
+
+    $default  reduce using rule 38 (EXP)
+
+
+State 86
+
+   21 BODY: T_lb . DECLAREVAL STMTLIST T_rb
+
+    T_int    shift, and go to state 1
+    T_char   shift, and go to state 2
+    T_float  shift, and go to state 3
+
+    T_TYPE      转到状态 8
+    DECLAREVAL  转到状态 93
+
+
+State 87
+
+    5 FUNC: T_func T_identifier T_ls FUNC_VAR_LIST T_rs T_TYPE BODY .
+
+    $default  reduce using rule 5 (FUNC)
+
+
+State 88
+
+   13 FUNC_VAR: T_comma T_TYPE . T_identifier
+
+    T_identifier  shift, and go to state 94
+
+
+State 89
+
+   60 EXP: T_identifier T_ls FUNC_ARG_LIST T_rs .
+
+    $default  reduce using rule 60 (EXP)
+
+
+State 90
+
+    9 FUNC_ARG: T_comma . EXP FUNC_ARG
+
+    T_identifier  shift, and go to state 22
+    T_not         shift, and go to state 23
+    T_lnot        shift, and go to state 24
+    T_cst_int     shift, and go to state 25
+    T_cst_float   shift, and go to state 26
+    T_cst_char    shift, and go to state 27
+    T_ls          shift, and go to state 28
+
+    CONST  转到状态 29
+    EXP    转到状态 95
+
+
+State 91
+
+    7 FUNC_ARG_LIST: EXP FUNC_ARG .
+
+    $default  reduce using rule 7 (FUNC_ARG_LIST)
+
+
+State 92
+
+   58 EXP: T_ls T_TYPE T_rs T_ls . EXP T_rs
+
+    T_identifier  shift, and go to state 22
+    T_not         shift, and go to state 23
+    T_lnot        shift, and go to state 24
+    T_cst_int     shift, and go to state 25
+    T_cst_float   shift, and go to state 26
+    T_cst_char    shift, and go to state 27
+    T_ls          shift, and go to state 28
+
+    CONST  转到状态 29
+    EXP    转到状态 96
+
+
+State 93
+
+   21 BODY: T_lb DECLAREVAL . STMTLIST T_rb
+
+    T_identifier  shift, and go to state 22
+    T_if          shift, and go to state 97
+    T_while       shift, and go to state 98
+    T_return      shift, and go to state 99
+    T_not         shift, and go to state 23
+    T_lnot        shift, and go to state 24
+    T_cst_int     shift, and go to state 25
+    T_cst_float   shift, and go to state 26
+    T_cst_char    shift, and go to state 27
+    T_ls          shift, and go to state 28
+    T_lb          shift, and go to state 100
+
+    $default  reduce using rule 22 (STMTLIST)
+
+    BODY      转到状态 101
+    STMTLIST  转到状态 102
+    STMT      转到状态 103
+    CONST     转到状态 29
+    EXP       转到状态 104
+
+
+State 94
+
+   13 FUNC_VAR: T_comma T_TYPE T_identifier .
+
+    $default  reduce using rule 13 (FUNC_VAR)
+
+
+State 95
+
+    9 FUNC_ARG: T_comma EXP . FUNC_ARG
+   37 EXP: EXP . T_and EXP
+   38    | EXP . T_assign EXP
+   39    | EXP . T_or EXP
+   41    | EXP . T_land EXP
+   42    | EXP . T_lor EXP
+   44    | EXP . T_lxor EXP
+   45    | EXP . T_add EXP
+   46    | EXP . T_sub EXP
+   47    | EXP . T_mul EXP
+   48    | EXP . T_div EXP
+   49    | EXP . T_equal EXP
+   50    | EXP . T_big EXP
+   51    | EXP . T_bige EXP
+   52    | EXP . T_small EXP
+   53    | EXP . T_smalle EXP
+   54    | EXP . T_nequal EXP
+   55    | EXP . T_leftmove EXP
+   56    | EXP . T_rightmove EXP
+   59    | EXP . T_mod EXP
+
+    T_div        shift, and go to state 39
+    T_mul        shift, and go to state 40
+    T_mod        shift, and go to state 41
+    T_sub        shift, and go to state 42
+    T_add        shift, and go to state 43
+    T_leftmove   shift, and go to state 44
+    T_rightmove  shift, and go to state 45
+    T_big        shift, and go to state 46
+    T_bige       shift, and go to state 47
+    T_small      shift, and go to state 48
+    T_smalle     shift, and go to state 49
+    T_equal      shift, and go to state 50
+    T_nequal     shift, and go to state 51
+    T_land       shift, and go to state 52
+    T_lxor       shift, and go to state 53
+    T_lor        shift, and go to state 54
+    T_and        shift, and go to state 55
+    T_or         shift, and go to state 56
+    T_assign     shift, and go to state 57
+    T_comma      shift, and go to state 90
+
+    $default  reduce using rule 8 (FUNC_ARG)
+
+    FUNC_ARG  转到状态 105
+
+
+State 96
+
+   37 EXP: EXP . T_and EXP
+   38    | EXP . T_assign EXP
+   39    | EXP . T_or EXP
+   41    | EXP . T_land EXP
+   42    | EXP . T_lor EXP
+   44    | EXP . T_lxor EXP
+   45    | EXP . T_add EXP
+   46    | EXP . T_sub EXP
+   47    | EXP . T_mul EXP
+   48    | EXP . T_div EXP
+   49    | EXP . T_equal EXP
+   50    | EXP . T_big EXP
+   51    | EXP . T_bige EXP
+   52    | EXP . T_small EXP
+   53    | EXP . T_smalle EXP
+   54    | EXP . T_nequal EXP
+   55    | EXP . T_leftmove EXP
+   56    | EXP . T_rightmove EXP
+   58    | T_ls T_TYPE T_rs T_ls EXP . T_rs
+   59    | EXP . T_mod EXP
+
+    T_div        shift, and go to state 39
+    T_mul        shift, and go to state 40
+    T_mod        shift, and go to state 41
+    T_sub        shift, and go to state 42
+    T_add        shift, and go to state 43
+    T_leftmove   shift, and go to state 44
+    T_rightmove  shift, and go to state 45
+    T_big        shift, and go to state 46
+    T_bige       shift, and go to state 47
+    T_small      shift, and go to state 48
+    T_smalle     shift, and go to state 49
+    T_equal      shift, and go to state 50
+    T_nequal     shift, and go to state 51
+    T_land       shift, and go to state 52
+    T_lxor       shift, and go to state 53
+    T_lor        shift, and go to state 54
+    T_and        shift, and go to state 55
+    T_or         shift, and go to state 56
+    T_assign     shift, and go to state 57
+    T_rs         shift, and go to state 106
+
+
+State 97
+
+   28 STMT: T_if . T_ls EXP T_rs STMT
+   29     | T_if . T_ls EXP T_rs STMT T_else STMT
+
+    T_ls  shift, and go to state 107
+
+
+State 98
+
+   30 STMT: T_while . T_ls EXP T_rs STMT
+
+    T_ls  shift, and go to state 108
+
+
+State 99
+
+   27 STMT: T_return . EXP T_semi
+
+    T_identifier  shift, and go to state 22
+    T_not         shift, and go to state 23
+    T_lnot        shift, and go to state 24
+    T_cst_int     shift, and go to state 25
+    T_cst_float   shift, and go to state 26
+    T_cst_char    shift, and go to state 27
+    T_ls          shift, and go to state 28
+
+    CONST  转到状态 29
+    EXP    转到状态 109
+
+
+State 100
+
+   21 BODY: T_lb . DECLAREVAL STMTLIST T_rb
+   26 STMT: T_lb . STMT T_rb
+
+    T_int         shift, and go to state 1
+    T_char        shift, and go to state 2
+    T_float       shift, and go to state 3
+    T_identifier  shift, and go to state 22
+    T_if          shift, and go to state 97
+    T_while       shift, and go to state 98
+    T_return      shift, and go to state 99
+    T_not         shift, and go to state 23
+    T_lnot        shift, and go to state 24
+    T_cst_int     shift, and go to state 25
+    T_cst_float   shift, and go to state 26
+    T_cst_char    shift, and go to state 27
+    T_ls          shift, and go to state 28
+    T_lb          shift, and go to state 100
+
+    T_TYPE      转到状态 8
+    DECLAREVAL  转到状态 93
+    BODY        转到状态 101
+    STMT        转到状态 110
+    CONST       转到状态 29
+    EXP         转到状态 104
+
+
+State 101
+
+   24 STMT: BODY .
+
+    $default  reduce using rule 24 (STMT)
+
+
+State 102
+
+   21 BODY: T_lb DECLAREVAL STMTLIST . T_rb
+
+    T_rb  shift, and go to state 111
+
+
+State 103
+
+   23 STMTLIST: STMT . STMTLIST
+
+    T_identifier  shift, and go to state 22
+    T_if          shift, and go to state 97
+    T_while       shift, and go to state 98
+    T_return      shift, and go to state 99
+    T_not         shift, and go to state 23
+    T_lnot        shift, and go to state 24
+    T_cst_int     shift, and go to state 25
+    T_cst_float   shift, and go to state 26
+    T_cst_char    shift, and go to state 27
+    T_ls          shift, and go to state 28
+    T_lb          shift, and go to state 100
+
+    $default  reduce using rule 22 (STMTLIST)
+
+    BODY      转到状态 101
+    STMTLIST  转到状态 112
+    STMT      转到状态 103
+    CONST     转到状态 29
+    EXP       转到状态 104
+
+
+State 104
+
+   25 STMT: EXP . T_semi
+   37 EXP: EXP . T_and EXP
+   38    | EXP . T_assign EXP
+   39    | EXP . T_or EXP
+   41    | EXP . T_land EXP
+   42    | EXP . T_lor EXP
+   44    | EXP . T_lxor EXP
+   45    | EXP . T_add EXP
+   46    | EXP . T_sub EXP
+   47    | EXP . T_mul EXP
+   48    | EXP . T_div EXP
+   49    | EXP . T_equal EXP
+   50    | EXP . T_big EXP
+   51    | EXP . T_bige EXP
+   52    | EXP . T_small EXP
+   53    | EXP . T_smalle EXP
+   54    | EXP . T_nequal EXP
+   55    | EXP . T_leftmove EXP
+   56    | EXP . T_rightmove EXP
+   59    | EXP . T_mod EXP
+
+    T_div        shift, and go to state 39
+    T_mul        shift, and go to state 40
+    T_mod        shift, and go to state 41
+    T_sub        shift, and go to state 42
+    T_add        shift, and go to state 43
+    T_leftmove   shift, and go to state 44
+    T_rightmove  shift, and go to state 45
+    T_big        shift, and go to state 46
+    T_bige       shift, and go to state 47
+    T_small      shift, and go to state 48
+    T_smalle     shift, and go to state 49
+    T_equal      shift, and go to state 50
+    T_nequal     shift, and go to state 51
+    T_land       shift, and go to state 52
+    T_lxor       shift, and go to state 53
+    T_lor        shift, and go to state 54
+    T_and        shift, and go to state 55
+    T_or         shift, and go to state 56
+    T_assign     shift, and go to state 57
+    T_semi       shift, and go to state 113
+
+
+State 105
+
+    9 FUNC_ARG: T_comma EXP FUNC_ARG .
+
+    $default  reduce using rule 9 (FUNC_ARG)
+
+
+State 106
+
+   58 EXP: T_ls T_TYPE T_rs T_ls EXP T_rs .
+
+    $default  reduce using rule 58 (EXP)
+
+
+State 107
+
+   28 STMT: T_if T_ls . EXP T_rs STMT
+   29     | T_if T_ls . EXP T_rs STMT T_else STMT
+
+    T_identifier  shift, and go to state 22
+    T_not         shift, and go to state 23
+    T_lnot        shift, and go to state 24
+    T_cst_int     shift, and go to state 25
+    T_cst_float   shift, and go to state 26
+    T_cst_char    shift, and go to state 27
+    T_ls          shift, and go to state 28
+
+    CONST  转到状态 29
+    EXP    转到状态 114
+
+
+State 108
+
+   30 STMT: T_while T_ls . EXP T_rs STMT
+
+    T_identifier  shift, and go to state 22
+    T_not         shift, and go to state 23
+    T_lnot        shift, and go to state 24
+    T_cst_int     shift, and go to state 25
+    T_cst_float   shift, and go to state 26
+    T_cst_char    shift, and go to state 27
+    T_ls          shift, and go to state 28
+
+    CONST  转到状态 29
+    EXP    转到状态 115
+
+
+State 109
+
+   27 STMT: T_return EXP . T_semi
+   37 EXP: EXP . T_and EXP
+   38    | EXP . T_assign EXP
+   39    | EXP . T_or EXP
+   41    | EXP . T_land EXP
+   42    | EXP . T_lor EXP
+   44    | EXP . T_lxor EXP
+   45    | EXP . T_add EXP
+   46    | EXP . T_sub EXP
+   47    | EXP . T_mul EXP
+   48    | EXP . T_div EXP
+   49    | EXP . T_equal EXP
+   50    | EXP . T_big EXP
+   51    | EXP . T_bige EXP
+   52    | EXP . T_small EXP
+   53    | EXP . T_smalle EXP
+   54    | EXP . T_nequal EXP
+   55    | EXP . T_leftmove EXP
+   56    | EXP . T_rightmove EXP
+   59    | EXP . T_mod EXP
+
+    T_div        shift, and go to state 39
+    T_mul        shift, and go to state 40
+    T_mod        shift, and go to state 41
+    T_sub        shift, and go to state 42
+    T_add        shift, and go to state 43
+    T_leftmove   shift, and go to state 44
+    T_rightmove  shift, and go to state 45
+    T_big        shift, and go to state 46
+    T_bige       shift, and go to state 47
+    T_small      shift, and go to state 48
+    T_smalle     shift, and go to state 49
+    T_equal      shift, and go to state 50
+    T_nequal     shift, and go to state 51
+    T_land       shift, and go to state 52
+    T_lxor       shift, and go to state 53
+    T_lor        shift, and go to state 54
+    T_and        shift, and go to state 55
+    T_or         shift, and go to state 56
+    T_assign     shift, and go to state 57
+    T_semi       shift, and go to state 116
+
+
+State 110
+
+   26 STMT: T_lb STMT . T_rb
+
+    T_rb  shift, and go to state 117
+
+
+State 111
+
+   21 BODY: T_lb DECLAREVAL STMTLIST T_rb .
+
+    $default  reduce using rule 21 (BODY)
+
+
+State 112
+
+   23 STMTLIST: STMT STMTLIST .
+
+    $default  reduce using rule 23 (STMTLIST)
+
+
+State 113
+
+   25 STMT: EXP T_semi .
+
+    $default  reduce using rule 25 (STMT)
+
+
+State 114
+
+   28 STMT: T_if T_ls EXP . T_rs STMT
+   29     | T_if T_ls EXP . T_rs STMT T_else STMT
+   37 EXP: EXP . T_and EXP
+   38    | EXP . T_assign EXP
+   39    | EXP . T_or EXP
+   41    | EXP . T_land EXP
+   42    | EXP . T_lor EXP
+   44    | EXP . T_lxor EXP
+   45    | EXP . T_add EXP
+   46    | EXP . T_sub EXP
+   47    | EXP . T_mul EXP
+   48    | EXP . T_div EXP
+   49    | EXP . T_equal EXP
+   50    | EXP . T_big EXP
+   51    | EXP . T_bige EXP
+   52    | EXP . T_small EXP
+   53    | EXP . T_smalle EXP
+   54    | EXP . T_nequal EXP
+   55    | EXP . T_leftmove EXP
+   56    | EXP . T_rightmove EXP
+   59    | EXP . T_mod EXP
+
+    T_div        shift, and go to state 39
+    T_mul        shift, and go to state 40
+    T_mod        shift, and go to state 41
+    T_sub        shift, and go to state 42
+    T_add        shift, and go to state 43
+    T_leftmove   shift, and go to state 44
+    T_rightmove  shift, and go to state 45
+    T_big        shift, and go to state 46
+    T_bige       shift, and go to state 47
+    T_small      shift, and go to state 48
+    T_smalle     shift, and go to state 49
+    T_equal      shift, and go to state 50
+    T_nequal     shift, and go to state 51
+    T_land       shift, and go to state 52
+    T_lxor       shift, and go to state 53
+    T_lor        shift, and go to state 54
+    T_and        shift, and go to state 55
+    T_or         shift, and go to state 56
+    T_assign     shift, and go to state 57
+    T_rs         shift, and go to state 118
+
+
+State 115
+
+   30 STMT: T_while T_ls EXP . T_rs STMT
+   37 EXP: EXP . T_and EXP
+   38    | EXP . T_assign EXP
+   39    | EXP . T_or EXP
+   41    | EXP . T_land EXP
+   42    | EXP . T_lor EXP
+   44    | EXP . T_lxor EXP
+   45    | EXP . T_add EXP
+   46    | EXP . T_sub EXP
+   47    | EXP . T_mul EXP
+   48    | EXP . T_div EXP
+   49    | EXP . T_equal EXP
+   50    | EXP . T_big EXP
+   51    | EXP . T_bige EXP
+   52    | EXP . T_small EXP
+   53    | EXP . T_smalle EXP
+   54    | EXP . T_nequal EXP
+   55    | EXP . T_leftmove EXP
+   56    | EXP . T_rightmove EXP
+   59    | EXP . T_mod EXP
+
+    T_div        shift, and go to state 39
+    T_mul        shift, and go to state 40
+    T_mod        shift, and go to state 41
+    T_sub        shift, and go to state 42
+    T_add        shift, and go to state 43
+    T_leftmove   shift, and go to state 44
+    T_rightmove  shift, and go to state 45
+    T_big        shift, and go to state 46
+    T_bige       shift, and go to state 47
+    T_small      shift, and go to state 48
+    T_smalle     shift, and go to state 49
+    T_equal      shift, and go to state 50
+    T_nequal     shift, and go to state 51
+    T_land       shift, and go to state 52
+    T_lxor       shift, and go to state 53
+    T_lor        shift, and go to state 54
+    T_and        shift, and go to state 55
+    T_or         shift, and go to state 56
+    T_assign     shift, and go to state 57
+    T_rs         shift, and go to state 119
+
+
+State 116
+
+   27 STMT: T_return EXP T_semi .
+
+    $default  reduce using rule 27 (STMT)
+
+
+State 117
+
+   26 STMT: T_lb STMT T_rb .
+
+    $default  reduce using rule 26 (STMT)
+
+
+State 118
+
+   28 STMT: T_if T_ls EXP T_rs . STMT
+   29     | T_if T_ls EXP T_rs . STMT T_else STMT
+
+    T_identifier  shift, and go to state 22
+    T_if          shift, and go to state 97
+    T_while       shift, and go to state 98
+    T_return      shift, and go to state 99
+    T_not         shift, and go to state 23
+    T_lnot        shift, and go to state 24
+    T_cst_int     shift, and go to state 25
+    T_cst_float   shift, and go to state 26
+    T_cst_char    shift, and go to state 27
+    T_ls          shift, and go to state 28
+    T_lb          shift, and go to state 100
+
+    BODY   转到状态 101
+    STMT   转到状态 120
+    CONST  转到状态 29
+    EXP    转到状态 104
+
+
+State 119
+
+   30 STMT: T_while T_ls EXP T_rs . STMT
+
+    T_identifier  shift, and go to state 22
+    T_if          shift, and go to state 97
+    T_while       shift, and go to state 98
+    T_return      shift, and go to state 99
+    T_not         shift, and go to state 23
+    T_lnot        shift, and go to state 24
+    T_cst_int     shift, and go to state 25
+    T_cst_float   shift, and go to state 26
+    T_cst_char    shift, and go to state 27
+    T_ls          shift, and go to state 28
+    T_lb          shift, and go to state 100
+
+    BODY   转到状态 101
+    STMT   转到状态 121
+    CONST  转到状态 29
+    EXP    转到状态 104
+
+
+State 120
+
+   28 STMT: T_if T_ls EXP T_rs STMT .
+   29     | T_if T_ls EXP T_rs STMT . T_else STMT
+
+    T_else  shift, and go to state 122
+
+    $default  reduce using rule 28 (STMT)
+
+
+State 121
+
+   30 STMT: T_while T_ls EXP T_rs STMT .
+
+    $default  reduce using rule 30 (STMT)
+
+
+State 122
+
+   29 STMT: T_if T_ls EXP T_rs STMT T_else . STMT
+
+    T_identifier  shift, and go to state 22
+    T_if          shift, and go to state 97
+    T_while       shift, and go to state 98
+    T_return      shift, and go to state 99
+    T_not         shift, and go to state 23
+    T_lnot        shift, and go to state 24
+    T_cst_int     shift, and go to state 25
+    T_cst_float   shift, and go to state 26
+    T_cst_char    shift, and go to state 27
+    T_ls          shift, and go to state 28
+    T_lb          shift, and go to state 100
+
+    BODY   转到状态 101
+    STMT   转到状态 123
+    CONST  转到状态 29
+    EXP    转到状态 104
+
+
+State 123
+
+   29 STMT: T_if T_ls EXP T_rs STMT T_else STMT .
+
+    $default  reduce using rule 29 (STMT)

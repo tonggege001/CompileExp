@@ -1,0 +1,28 @@
+int a;
+float c;
+char d;
+func main()void {
+int a
+float b;
+a = 5;
+b = 6;
+c = fff(a,b);
+e = alloc(“aaa”);
+if(a < b){
+	int c = 0;
+	c = c - 10;
+	a = c;
+}else{
+	b = 12;
+}
+while(b != 100){
+	b = b+1;
+	if(b % 2 == 0) b++;
+	}
+return 0;
+}
+
+func fff(int a, int b)int{
+int c = a +b;
+return c;
+}
