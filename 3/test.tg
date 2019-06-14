@@ -1,0 +1,33 @@
+int a;
+float[5] c;
+char d;
+
+func fff(int a, int b)int{
+	int c = a + b;
+	return c;
+}
+
+
+func main()int {
+	int a;
+	int b;
+	int c = float(a);
+	(a+b)++;
+	
+	a = 5;
+	b = 6;
+	c = fff(a,b);
+	if(a < b){
+		int c = 0;
+		c = c - 10;
+		a = c;
+	}else{
+		b = 12;
+	}
+	while(b != 100){
+		b = b+1;
+		if(b % 2 == 0) break;
+	}
+	return 0;
+}
+

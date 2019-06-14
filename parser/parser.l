@@ -18,12 +18,8 @@
 
     YYSTYPE yylval;
 
-    /*
-{int}           {yycolumn++;yylval.type_int=atoi(yytext);printf("T_cst_int, value=%d\n",yylval.type_int);return T_cst_int;}
-{float}         {yycolumn++;yylval.type_float=atof(yytext);printf("T_cst_float, value=%f\n",yylval.type_float);return T_cst_float;}
-{char}          {yycolumn++;yylval.type_int=yytext[0]-'0';printf("T_cst_char,value=%c\n",yylval.type_int);return T_cst_char;}
-{T_identifier}  {yycolumn++;strcpy(yylval.type_id,yytext);printf("T_identifier, value=%s\n",yylval.type_id);return T_identifier;}
-*/
+    
+
 %}
 
 %option yylineno
@@ -54,11 +50,13 @@ commentSingle   (\/\/[^n]*)
 "return"        {yycolumn++;output("T_return");return T_return;}
 
 
-{int}           {yycolumn++;yylval.type_int=atoi(yytext);return T_cst_int;}
-{float}         {yycolumn++;yylval.type_float=atof(yytext);return T_cst_float;}
-{char}          {yycolumn++;yylval.type_int=yytext[0]-'0';return T_cst_char;}
-{T_identifier}  {yycolumn++;strcpy(yylval.type_id,yytext);return T_identifier;}
+{int}           {yycolumn++;yylval.type_int=atoi(yytext);printf("T_cst_int, value=%d\n",yylval.type_int);return T_cst_int;}
+{float}         {yycolumn++;yylval.type_float=atof(yytext);printf("T_cst_float, value=%f\n",yylval.type_float);return T_cst_float;}
+{char}          {yycolumn++;yylval.type_int=yytext[0]-'0';printf("T_cst_char,value=%c\n",yylval.type_int);return T_cst_char;}
+{T_identifier}  {yycolumn++;strcpy(yylval.type_id,yytext);printf("T_identifier, value=%s\n",yylval.type_id);return T_identifier;}
 
+"++"            {yycolumn++;output("T_pp"); return T_pp;}
+"--"            {yycolumn++;output("T_ss"); return T_ss;}
 "("             {yycolumn++;output("T_ls");return T_ls;}
 ")"             {yycolumn++;output("T_rs");return T_rs;}
 "{"             {yycolumn++;output("T_lb");return T_lb;}
@@ -109,6 +107,6 @@ int yywrap(){
 }
 
 void output(char * str){
-    //printf("line:%d\tcolumn:%d\t\t%s\n",yylineno,yycolumn,str);
+    printf("line:%d\tcolumn:%d\t\t%s\n",yylineno,yycolumn,str);
     return;
 }

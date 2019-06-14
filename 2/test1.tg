@@ -1,0 +1,29 @@
+int a;
+float b;
+
+func main() int{
+    int a;
+    int i;
+    (a+1)++;
+    i++;
+
+}
+
+func ff(int arg1, float arg2) int{
+    float a = 5;
+    float c;
+    int d;
+    c = a + b;
+    if(c > 0.1){
+        c = 10;
+    }
+    if(c > 0.2){
+        int d = 2.1;
+        c = d;
+    }else{
+        c = 0.0;
+    }
+    d = main();
+}
+
+

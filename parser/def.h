@@ -20,6 +20,7 @@ struct node{
         float floatval;
         char type_id[33]; 
     };
+    struct node * parient;
     struct node *child[5];          //子树指针，由kind确定有多少棵子树
     int level;                      //层号
     int place;                      //表示结点对应的变量在符号表的位置

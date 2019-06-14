@@ -51,6 +51,7 @@ void display(struct node *, int);
 %token T_and
 %token T_or
 %token T_assign
+%token T_pp T_ss
 %token <type_int> T_cst_int 
 %token <type_float>T_cst_float
 %token <type_int> T_cst_char
@@ -71,7 +72,7 @@ void display(struct node *, int);
 %left T_leftmove T_rightmove
 %left T_add T_sub
 %left T_mul T_div T_mod
-%right T_not T_lnot
+%right T_not T_lnot T_pp T_ss
 %left T_getarr
 %nonassoc T_int T_char T_float
 %left T_ls T_rs T_lb T_rb
@@ -136,7 +137,7 @@ DECLAREVAL: T_TYPE T_identifier T_semi {struct node * n = mknode(T_identifier,NU
 		$$=mknode(DECLAREVAL,$1,n,n2,$4,NULL,yylineno);}
 	;
 
-BODY: T_lb DECLAREVAL STMTLIST T_rb	{$$=mknode(BODY,$2,$3,NULL,NULL,NULL,yylineno);}
+BODY: T_lb DECLAREVALLIST STMTLIST T_rb	{$$=mknode(BODY,$2,$3,NULL,NULL,NULL,yylineno);}
 	;
 	
 STMTLIST: {$$=NULL;}
@@ -145,8 +146,9 @@ STMTLIST: {$$=NULL;}
 
 STMT:BODY {$$=mknode(STMT,$1,NULL,NULL,NULL,NULL,yylineno);}
 	| EXP T_semi {$$=mknode(STMT,$1,NULL,NULL,NULL,NULL,yylineno);}
-	| T_lb STMT T_rb {$$=mknode(STMT,$2,NULL,NULL,NULL,NULL,yylineno);}
-	| T_return EXP T_semi{struct node * n = mknode(T_return,NULL,NULL,NULL,NULL,NULL,yylineno);$$=mknode(STMT,n,$2,NULL,NULL,NULL,yylineno);}
+	| T_return EXP T_semi {struct node * n = mknode(T_return,NULL,NULL,NULL,NULL,NULL,yylineno);$$=mknode(STMT,n,$2,NULL,NULL,NULL,yylineno);}
+	| T_break T_semi {$$=mknode(STMT,NULL,NULL,NULL,NULL,NULL,yylineno);}
+	| T_continue T_semi {$$=mknode(STMT,NULL,NULL,NULL,NULL,NULL,yylineno)}
 	| T_if T_ls EXP T_rs STMT {struct node * n = mknode(T_if,NULL,NULL,NULL,NULL,NULL,yylineno);$$=mknode(STMT,n,$3,$5,NULL,NULL,yylineno);}	 
 	| T_if T_ls EXP T_rs STMT T_else STMT 
 		{struct node * n = mknode(T_if,NULL,NULL,NULL,NULL,NULL,yylineno);struct node * n2 = mknode(T_else,NULL,NULL,NULL,NULL,NULL,yylineno);$$=mknode(STMT,n,$3,$5,n2,$7,yylineno);}
@@ -175,6 +177,8 @@ EXP: CONST	{$$ = mknode(EXP, $1,NULL,NULL,NULL,NULL,yylineno);}
 	| EXP T_and EXP {$$=mknode(T_and,$1,$3,NULL,NULL,NULL,yylineno);}
 	| EXP T_assign EXP {$$=mknode(T_assign,$1,$3,NULL,NULL,NULL,yylineno);}
 	| EXP T_or EXP {$$=mknode(T_or,$1,$3,NULL,NULL,NULL,yylineno);}
+	| EXP T_ss {$$=mknode(T_ss,$1,NULL,NULL,NULL,NULL,yylineno);}
+	| EXP T_pp	{$$=mknode(T_pp,$1,NULL,NULL,NULL,NULL,yylineno);}
 	| T_not EXP {$$=mknode(T_not,$2,NULL,NULL,NULL,NULL,yylineno);}
 	| EXP T_land EXP {$$=mknode(T_land,$1,$3,NULL,NULL,NULL,yylineno);}
 	| EXP T_lor EXP {$$=mknode(T_lor,$1,$3,NULL,NULL,NULL,yylineno);}
@@ -196,7 +200,7 @@ EXP: CONST	{$$ = mknode(EXP, $1,NULL,NULL,NULL,NULL,yylineno);}
 		struct node * n = mknode(T_identifier,NULL,NULL,NULL,NULL,NULL,yylineno); strcpy(n->type_id,yylval.type_id);
 		$$=mknode(EXP, n,$3,NULL,NULL ,NULL,yylineno);
 	}
-	| T_ls T_TYPE T_rs T_ls EXP T_rs {$$=mknode(EXP,$2,$5,NULL,NULL,NULL,yylineno);}
+	| T_TYPE  T_ls EXP T_rs {$$=mknode(EXP,$1,$3,NULL,NULL,NULL,yylineno);}
 	| EXP T_mod EXP {$$=mknode(T_mod,$1,$3,NULL,NULL,NULL,yylineno);}
 	| T_identifier T_ls FUNC_ARG_LIST T_rs {
 		struct node * n = mknode(T_identifier,NULL,NULL,NULL,NULL,NULL,yylineno); strcpy(n->type_id,yylval.type_id);

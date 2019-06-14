@@ -1,0 +1,26 @@
+int a;
+int b;
+
+func ff(int c,int d) int {
+    return c + d;
+}
+
+func main(int a) int {
+    int[5] b;
+    int c;
+    float dd = 0.2;
+    b$5 = 3;
+    (a+b)++;
+    (a + c) = 10;
+    b$5++;
+    b$(5++);
+    ff(a,b$2);
+    ff(a);
+    ff(a,a,a);
+    ff(a,a);
+    ff(a,dd);
+}
+
+
+
+
